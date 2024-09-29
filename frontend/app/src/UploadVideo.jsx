@@ -1,20 +1,168 @@
-// // // src/UploadVideo.js
-// // import React, { useState } from "react";
+// // // import React, { useState, useRef } from "react";
+// // // import axios from "axios";
+
+// // // const UploadVideo = () => {
+// // //   const [file, setFile] = useState(null);
+// // //   const [response, setResponse] = useState(null);
+// // //   const [error, setError] = useState(null);
+// // //   const [isRecording, setIsRecording] = useState(false);
+// // //   const [recordedBlob, setRecordedBlob] = useState(null);
+// // //   const videoRef = useRef(null);
+// // //   const mediaRecorderRef = useRef(null);
+// // //   const streamRef = useRef(null);
+
+// // //   const startRecording = async () => {
+// // //     setError(null);
+// // //     try {
+// // //       const stream = await navigator.mediaDevices.getUserMedia({
+// // //         video: { frameRate: { ideal: 25, max: 25 } }, // Setting frame rate to 25 FPS
+// // //       });
+// // //       streamRef.current = stream;
+// // //       videoRef.current.srcObject = stream;
+// // //       videoRef.current.play();
+
+// // //       mediaRecorderRef.current = new MediaRecorder(stream);
+// // //       mediaRecorderRef.current.ondataavailable = (event) => {
+// // //         if (event.data.size > 0) {
+// // //           setRecordedBlob(URL.createObjectURL(event.data));
+// // //           setFile(new Blob([event.data], { type: "video/webm" }));
+// // //         }
+// // //       };
+// // //       mediaRecorderRef.current.start();
+// // //       setIsRecording(true);
+// // //     } catch (err) {
+// // //       setError("Error accessing camera.");
+// // //       console.error(err);
+// // //     }
+// // //   };
+
+// // //   const stopRecording = () => {
+// // //     if (mediaRecorderRef.current) {
+// // //       mediaRecorderRef.current.stop();
+// // //       if (streamRef.current) {
+// // //         streamRef.current.getTracks().forEach((track) => track.stop());
+// // //       }
+// // //       setIsRecording(false);
+// // //     }
+// // //   };
+
+// // //   const handleSubmit = async (event) => {
+// // //     event.preventDefault();
+// // //     if (!file) {
+// // //       setError("Please record a video.");
+// // //       return;
+// // //     }
+
+// // //     const formData = new FormData();
+// // //     formData.append("video", file);
+
+// // //     try {
+// // //       const res = await axios.post(
+// // //         "http://165.22.217.74/trigger-video-processing",
+// // //         formData,
+// // //         {
+// // //           headers: {
+// // //             "Content-Type": "multipart/form-data",
+// // //           },
+// // //         }
+// // //       );
+// // //       setResponse(res.data);
+// // //       setError(null);
+// // //     } catch (err) {
+// // //       setError("Error uploading video.");
+// // //       console.error(err);
+// // //     }
+// // //   };
+
+// // //   return (
+// // //     <div>
+// // //       <h1>Record and Upload Video</h1>
+// // //       <div>
+// // //         <video ref={videoRef} width="640" height="480" autoPlay muted />
+// // //       </div>
+// // //       <div>
+// // //         {isRecording ? (
+// // //           <button onClick={stopRecording}>Stop Recording</button>
+// // //         ) : (
+// // //           <button onClick={startRecording}>Start Recording</button>
+// // //         )}
+// // //       </div>
+// // //       {recordedBlob && !isRecording && (
+// // //         <div>
+// // //           <h2>Preview</h2>
+// // //           <video width="640" height="480" controls src={recordedBlob} />
+// // //         </div>
+// // //       )}
+// // //       <form onSubmit={handleSubmit}>
+// // //         <button type="submit" disabled={!recordedBlob}>
+// // //           Upload
+// // //         </button>
+// // //       </form>
+// // //       {response && (
+// // //         <div>
+// // //           <h2>Processing Result</h2>
+// // //           <pre>{JSON.stringify(response, null, 2)}</pre>
+// // //         </div>
+// // //       )}
+// // //       {error && <p style={{ color: "red" }}>{error}</p>}
+// // //     </div>
+// // //   );
+// // // };
+
+// // // export default UploadVideo;
+
+// // import React, { useState, useRef } from "react";
 // // import axios from "axios";
 
 // // const UploadVideo = () => {
 // //   const [file, setFile] = useState(null);
 // //   const [response, setResponse] = useState(null);
 // //   const [error, setError] = useState(null);
+// //   const [isRecording, setIsRecording] = useState(false);
+// //   const [recordedBlob, setRecordedBlob] = useState(null);
+// //   const videoRef = useRef(null);
+// //   const mediaRecorderRef = useRef(null);
+// //   const streamRef = useRef(null);
 
-// //   const handleFileChange = (event) => {
-// //     setFile(event.target.files[0]);
+// //   const startRecording = async () => {
+// //     setError(null);
+// //     try {
+// //       const stream = await navigator.mediaDevices.getUserMedia({
+// //         video: { frameRate: { ideal: 25, max: 25 } }, // Setting frame rate to 25 FPS
+// //       });
+// //       streamRef.current = stream;
+// //       videoRef.current.srcObject = stream;
+// //       videoRef.current.play();
+
+// //       mediaRecorderRef.current = new MediaRecorder(stream);
+// //       mediaRecorderRef.current.ondataavailable = (event) => {
+// //         if (event.data.size > 0) {
+// //           setRecordedBlob(URL.createObjectURL(event.data));
+// //           setFile(new Blob([event.data], { type: "video/webm" }));
+// //         }
+// //       };
+// //       mediaRecorderRef.current.start();
+// //       setIsRecording(true);
+// //     } catch (err) {
+// //       setError("Error accessing camera.");
+// //       console.error(err);
+// //     }
+// //   };
+
+// //   const stopRecording = () => {
+// //     if (mediaRecorderRef.current) {
+// //       mediaRecorderRef.current.stop();
+// //       if (streamRef.current) {
+// //         streamRef.current.getTracks().forEach((track) => track.stop());
+// //       }
+// //       setIsRecording(false);
+// //     }
 // //   };
 
 // //   const handleSubmit = async (event) => {
 // //     event.preventDefault();
 // //     if (!file) {
-// //       setError("Please upload a video file.");
+// //       setError("Please record a video.");
 // //       return;
 // //     }
 
@@ -23,7 +171,7 @@
 
 // //     try {
 // //       const res = await axios.post(
-// //         "http://localhost:3000/trigger-video-processing",
+// //         "http://165.22.217.74/trigger-video-processing",
 // //         formData,
 // //         {
 // //           headers: {
@@ -41,10 +189,27 @@
 
 // //   return (
 // //     <div>
-// //       <h1>Upload Video</h1>
+// //       <h1>Record and Upload Video</h1>
+// //       <div>
+// //         <video ref={videoRef} width="640" height="480" autoPlay muted />
+// //       </div>
+// //       <div>
+// //         {isRecording ? (
+// //           <button onClick={stopRecording}>Stop Recording</button>
+// //         ) : (
+// //           <button onClick={startRecording}>Start Recording</button>
+// //         )}
+// //       </div>
+// //       {recordedBlob && !isRecording && (
+// //         <div>
+// //           <h2>Preview</h2>
+// //           <video width="640" height="480" controls src={recordedBlob} />
+// //         </div>
+// //       )}
 // //       <form onSubmit={handleSubmit}>
-// //         <input type="file" accept="video/*" onChange={handleFileChange} />
-// //         <button type="submit">Upload</button>
+// //         <button type="submit" disabled={!recordedBlob}>
+// //           Upload
+// //         </button>
 // //       </form>
 // //       {response && (
 // //         <div>
@@ -59,8 +224,6 @@
 
 // // export default UploadVideo;
 
-//***************************************************************************** */
-
 // import React, { useState, useRef } from "react";
 // import axios from "axios";
 
@@ -74,11 +237,14 @@
 //   const mediaRecorderRef = useRef(null);
 //   const streamRef = useRef(null);
 
-//   // Start recording
+//   const userEmail = localStorage.getItem("email");
+
 //   const startRecording = async () => {
 //     setError(null);
 //     try {
-//       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+//       const stream = await navigator.mediaDevices.getUserMedia({
+//         video: { frameRate: { ideal: 25, max: 25 } },
+//       });
 //       streamRef.current = stream;
 //       videoRef.current.srcObject = stream;
 //       videoRef.current.play();
@@ -94,11 +260,9 @@
 //       setIsRecording(true);
 //     } catch (err) {
 //       setError("Error accessing camera.");
-//       console.error(err);
 //     }
 //   };
 
-//   // Stop recording
 //   const stopRecording = () => {
 //     if (mediaRecorderRef.current) {
 //       mediaRecorderRef.current.stop();
@@ -109,7 +273,6 @@
 //     }
 //   };
 
-//   // Upload recorded video
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
 //     if (!file) {
@@ -119,6 +282,7 @@
 
 //     const formData = new FormData();
 //     formData.append("video", file);
+//     formData.append("email", userEmail); // Add email to the request
 
 //     try {
 //       const res = await axios.post(
@@ -134,7 +298,6 @@
 //       setError(null);
 //     } catch (err) {
 //       setError("Error uploading video.");
-//       console.error(err);
 //     }
 //   };
 
@@ -175,7 +338,7 @@
 
 // export default UploadVideo;
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 const UploadVideo = () => {
@@ -187,13 +350,33 @@ const UploadVideo = () => {
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
+  const [userId, setUserId] = useState(null); // New state for userId
 
-  // Start recording with 25 FPS
+  const userEmail = localStorage.getItem("email");
+
+  // Fetch userId from backend using the stored email
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/details", {
+          params: { email: userEmail },
+        });
+        setUserId(res.data.userId); // Set the userId state
+      } catch (err) {
+        setError("Error fetching user details.");
+      }
+    };
+
+    if (userEmail) {
+      fetchUserId();
+    }
+  }, [userEmail]);
+
   const startRecording = async () => {
     setError(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { frameRate: { ideal: 25, max: 25 } }, // Setting frame rate to 25 FPS
+        video: { frameRate: { ideal: 25, max: 25 } },
       });
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
@@ -210,11 +393,9 @@ const UploadVideo = () => {
       setIsRecording(true);
     } catch (err) {
       setError("Error accessing camera.");
-      console.error(err);
     }
   };
 
-  // Stop recording
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -225,7 +406,6 @@ const UploadVideo = () => {
     }
   };
 
-  // Upload recorded video
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!file) {
@@ -233,8 +413,15 @@ const UploadVideo = () => {
       return;
     }
 
+    if (!userId) {
+      setError("User ID not found.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("video", file);
+    formData.append("email", userEmail); // Add email to the request
+    formData.append("userId", userId); // Send userId as well
 
     try {
       const res = await axios.post(
@@ -250,7 +437,6 @@ const UploadVideo = () => {
       setError(null);
     } catch (err) {
       setError("Error uploading video.");
-      console.error(err);
     }
   };
 
@@ -290,142 +476,3 @@ const UploadVideo = () => {
 };
 
 export default UploadVideo;
-
-//*********************************************************************************************
-
-// import React, { useState, useRef } from "react";
-// import axios from "axios";
-// import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-
-// const ffmpeg = createFFmpeg({ log: true });
-
-// const UploadVideo = () => {
-//   const [file, setFile] = useState(null);
-//   const [response, setResponse] = useState(null);
-//   const [error, setError] = useState(null);
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [recordedBlob, setRecordedBlob] = useState(null);
-//   const videoRef = useRef(null);
-//   const mediaRecorderRef = useRef(null);
-//   const streamRef = useRef(null);
-
-//   const loadFFmpeg = async () => {
-//     if (!ffmpeg.isLoaded()) {
-//       await ffmpeg.load();
-//     }
-//   };
-
-//   const startRecording = async () => {
-//     setError(null);
-//     try {
-//       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-//       streamRef.current = stream;
-//       videoRef.current.srcObject = stream;
-//       videoRef.current.play();
-
-//       mediaRecorderRef.current = new MediaRecorder(stream);
-//       mediaRecorderRef.current.ondataavailable = (event) => {
-//         if (event.data.size > 0) {
-//           setFile(new Blob([event.data], { type: "video/webm" }));
-//           setRecordedBlob(URL.createObjectURL(event.data));
-//         }
-//       };
-//       mediaRecorderRef.current.start();
-//       setIsRecording(true);
-//     } catch (err) {
-//       setError("Error accessing camera.");
-//       console.error(err);
-//     }
-//   };
-
-//   const stopRecording = () => {
-//     if (mediaRecorderRef.current) {
-//       mediaRecorderRef.current.stop();
-//       if (streamRef.current) {
-//         streamRef.current.getTracks().forEach((track) => track.stop());
-//       }
-//       setIsRecording(false);
-//     }
-//   };
-
-//   const convertToMP4 = async (webmBlob) => {
-//     await loadFFmpeg();
-
-//     const webmFile = new File([webmBlob], "video.webm", { type: "video/webm" });
-//     const inputFile = await fetchFile(webmFile);
-//     ffmpeg.FS("writeFile", "input.webm", new Uint8Array(inputFile));
-
-//     await ffmpeg.run("-i", "input.webm", "output.mp4");
-//     const data = ffmpeg.FS("readFile", "output.mp4");
-
-//     const mp4Blob = new Blob([data.buffer], { type: "video/mp4" });
-//     return URL.createObjectURL(mp4Blob);
-//   };
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     if (!recordedBlob) {
-//       setError("Please record a video.");
-//       return;
-//     }
-
-//     try {
-//       const mp4BlobURL = await convertToMP4(file);
-//       const mp4Blob = await fetch(mp4BlobURL).then((res) => res.blob());
-
-//       const formData = new FormData();
-//       formData.append("video", mp4Blob, "video.mp4");
-
-//       const res = await axios.post(
-//         "http://localhost:3000/trigger-video-processing",
-//         formData,
-//         {
-//           headers: {
-//             "Content-Type": "multipart/form-data",
-//           },
-//         }
-//       );
-//       setResponse(res.data);
-//       setError(null);
-//     } catch (err) {
-//       setError("Error uploading video.");
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Record and Upload Video</h1>
-//       <div>
-//         <video ref={videoRef} width="640" height="480" autoPlay muted />
-//       </div>
-//       <div>
-//         {isRecording ? (
-//           <button onClick={stopRecording}>Stop Recording</button>
-//         ) : (
-//           <button onClick={startRecording}>Start Recording</button>
-//         )}
-//       </div>
-//       {recordedBlob && !isRecording && (
-//         <div>
-//           <h2>Preview</h2>
-//           <video width="640" height="480" controls src={recordedBlob} />
-//         </div>
-//       )}
-//       <form onSubmit={handleSubmit}>
-//         <button type="submit" disabled={!recordedBlob}>
-//           Upload
-//         </button>
-//       </form>
-//       {response && (
-//         <div>
-//           <h2>Processing Result</h2>
-//           <pre>{JSON.stringify(response, null, 2)}</pre>
-//         </div>
-//       )}
-//       {error && <p style={{ color: "red" }}>{error}</p>}
-//     </div>
-//   );
-// };
-
-// export default UploadVideo;

@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.*.local
+
+# Dependency directories
+jspm_packages/
+
+# Build output
+dist/
+build/
+out/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Coverage reports
+coverage/
+
+# Misc
+.DS_Store
+*.pem
+*.key
+*.crt
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# NPM cache
+.npm/
+npm-debug.log*
+
+# Yarn cache
+.yarn/
+.pnp.*
