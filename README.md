@@ -105,13 +105,6 @@ docker run -p 5000:5000 anupunj/emotiondetectionserver
 
 ---
 
-## 🌐 Deployment
-
-The application is deployed on a DigitalOcean Ubuntu VM:
-- **Frontend and Backend**: Hosted on the VM.
-- **Video Processing**: Handled by Dockerized Flask containers to maintain performance.
-
----
 
 ## 🤝 Acknowledgments
 
@@ -130,7 +123,7 @@ The application is deployed on a DigitalOcean Ubuntu VM:
 ---
 
 ### 📧 Contact
-For questions or suggestions, feel free to contact **[Anupunj Alok](mailto:your-email@example.com)**.
+For questions or suggestions, feel free to contact **[Anupunj Alok](anupunj1alok@gmail.com)**.
 
 ---
 
