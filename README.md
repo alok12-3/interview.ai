@@ -1,4 +1,4 @@
-```markdown
+
 # 🌟 AI-Powered Resume Interview Web Application
 
 An intelligent web application designed to revolutionize virtual interviews. Upload a resume, get tailored questions, answer live with real-time transcription, and receive emotion analysis for valuable feedback on your performance.
